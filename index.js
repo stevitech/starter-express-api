@@ -12,4 +12,22 @@ app.get("/api", (req, res) => {
     res.end(`Hello! Go to item: <a href="${path}">${path}</a>`);
 });
 
+app.get("/upload", async (req, res) => {
+    // store something
+await s3.putObject({
+    Body: JSON.stringify({key:"value"}),
+    Bucket: "cyclic-capris-bear-us-west-2",
+    Key: "some_files/my_file.json",
+}).promise()
+
+// get it back
+let my_file = await s3.getObject({
+    Bucket: "cyclic-capris-bear-us-west-2",
+    Key: "some_files/my_file.json",
+}).promise()
+
+console.log(JSON.parse(my_file))
+
+})
+
 app.listen(process.env.PORT || 3000);
