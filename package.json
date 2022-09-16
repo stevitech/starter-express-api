@@ -1,22 +1,25 @@
 {
-  "name": "starter-express-api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cyclic-software/starter-express-api.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/cyclic-software/starter-express-api/issues"
-  },
-  "homepage": "https://github.com/cyclic-software/starter-express-api#readme",
-  "dependencies": {
-    "express": "^4.17.1"
-  }
+    "name": "starter-express-api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cyclic-software/starter-express-api.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/cyclic-software/starter-express-api/issues"
+    },
+    "homepage": "https://github.com/cyclic-software/starter-express-api#readme",
+    "dependencies": {
+        "aws-sdk": "^2.1217.0",
+        "dotenv": "^16.0.2",
+        "express": "^4.17.1",
+        "nodemon": "^2.0.19"
+    }
 }

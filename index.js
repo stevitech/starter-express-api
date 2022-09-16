@@ -1,9 +1,13 @@
+require("dotenv").config();
 const express = require("express");
+const AWS = require("aws-sdk");
 const app = express();
+
 app.all("/", (req, res) => {
     console.log("Just got a request!");
     res.send("Yo!");
 });
+const s3 = new AWS.S3();
 
 app.get("/api", (req, res) => {
     const path = `/api/item`;
@@ -14,20 +18,32 @@ app.get("/api", (req, res) => {
 
 app.get("/upload", async (req, res) => {
     // store something
-await s3.putObject({
-    Body: JSON.stringify({key:"value"}),
-    Bucket: "cyclic-capris-bear-us-west-2",
-    Key: "some_files/my_file.json",
-}).promise()
+    const val = await s3
+        .upload({
+            Body: JSON.stringify({ key: "value" }),
+            Bucket: "cyclic-capris-bear-us-west-2",
+            Key: "some_files/my_file.json",
+        })
+        .promise();
 
-// get it back
-let my_file = await s3.getObject({
-    Bucket: "cyclic-capris-bear-us-west-2",
-    Key: "some_files/my_file.json",
-}).promise()
+    // get it back
+    // let my_file = await s3
+    //     .getObject({
+    //         Bucket: "cyclic-capris-bear-us-west-2",
+    //         Key: "some_files/my_file.json",
+    //     })
+    //     .promise();
 
-console.log(JSON.parse(my_file))
+    console.log();
+    res.send({ message: "upload DONE@@", val });
+});
 
-})
+const server = app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server started on port ${process.env.PORT || 3000}`);
+});
 
-app.listen(process.env.PORT || 3000);
+process.on("SIGTERM", () => {
+    server.close(() => {
+        console.log("Process terminated");
+    });
+});
